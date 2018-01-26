@@ -65,6 +65,6 @@ cadaver --rcfile=$CADAVERRC
 # the above line, and uncomment the below one. You will also need to install 
 # expect.
 
-#expect -c "spawn cadaver --rcfile=$CADAVERRC; expect \"Do you wish to accept the certificate? (y/n)\"; send \"y\r\"; interact"
+#expect -c "set timeout -1; spawn cadaver --rcfile=$CADAVERRC; expect \"Do you wish to accept the certificate? (y/n)\"; send \"y\r\"; expect eof"
 
 rm -rf $TMP_DIR $CADAVERRC $HOME/.netrc
