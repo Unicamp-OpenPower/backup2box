@@ -10,11 +10,15 @@ Ubuntu/Debian: `sudo apt-get install cadaver`
 
 Fedora/CentOS: `sudo yum install cadaver`
 
-## 2. Change the variables at the beginning of the backup.sh file.
+## 2. Set your Box username and password in environment variables
 
-`BOX_USERNAME`: Your Box email.
+`export ENV_BOX_USERNAME='user@example.com'`
 
-`BOX_PASSWORD`: Your Box password.
+`export ENV_BOX_PASSWORD='passw0rd'`
+
+For convenience, add these lines to your `~/.bashrc`
+
+## 3. Change the variables at the beginning of the backup.sh file.
 
 `BACKUP_DESTINATION`: Path to the Box folder where the backups will be placed, not beginning or ending with a slash. Use `\⋅` (backslash + space) instead of space when necessary. The files will not be placed directly on the folder. A folder will be created matching the hostname, and inside of it, a folder for each day.
 
@@ -28,18 +32,18 @@ Fedora/CentOS: `sudo yum install cadaver`
 
 Files larger than 5GB will be split. To merge them, simply use `cat`. For example: `cat backup-home-hostname-2018-01-01.tar.gz.part* > backup-home-hostname-2018-01-01.tar.gz`
 
-## 3. Maybe install *expect*
+## 4. Maybe install *expect*
 
-Some versions of *cadaver* do not recognize a wildcard certificate, which is used by Box, and you will see a message like this: 
+Some versions of *cadaver* do not recognize a wildcard certificate, which is used by Box, and you will see a message like this:
 
 > WARNING: Untrusted server certificate presented for '\*.box.com':
-> 
+>
 > Certificate was issued to hostname '\*.box.com' rather than 'dav.box.com'
-> 
+>
 > This connection could have been intercepted.
-> 
+>
 > Issued to: Box, Inc., Redwood City, California, US
-> 
+>
 > Issued by: GeoTrust Inc., US
 
 This is known to happen when running *cadaver* on Ubuntu 14.04. To check whether or not this bug is present in your version, simply run `cadaver https://dav.box.com/dav`. If the warning is not shown, no changes are required. If it is, simply install *expect*, comment out the line 62 and uncomment the line 68. This way, the certificate will be automatically accepted.
@@ -50,14 +54,17 @@ Ubuntu/Debian: `sudo apt-get install expect`
 
 Fedora/CentOS: `sudo yum install expect`
 
-## 4. Run it
+## 5. Run it
 
 It is highly advisable to run it as root, since a regular user won't have permissions to read all the files in the system, possibly resulting in incomplete backups.
 
     sudo ./backup.sh
 
-## 5. Schedule it
+## 6. Schedule it
 
-To back up your system regularly and automatically, you can schedule this script on crontab. Either manually using a custom rule or copying it to a cron directory, like `/etc/cron.daily`.
+To back up your system regularly and automatically, you can schedule this script on crontab.
 
-When scheduling manually, use the root crontab (`sudo crontab -e`). If using a cron directory, remove the `.sh`  extension from the `backup.sh` file.
+When scheduling, use the root crontab (`sudo crontab -e`) and set the username and passsword for Box before running. For example, to run it every day at midnight:
+
+`0 0 * * * export ENV_BOX_USERNAME='user@example.com' ; export ENV_BOX_PASSWORD='passw0rd' ; /path/to/script/backup2box/backup.sh`
+

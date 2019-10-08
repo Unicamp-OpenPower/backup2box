@@ -12,11 +12,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '
 
-BOX_USERNAME=$ENV_BOX_USERNAME
-BOX_PASSWORD=$ENV_BOX_PASSWORD
+########################## CHANGE HERE ##########################
+
 BACKUP_DESTINATION='Backup'
 DIRS_TO_BACK_UP=(/home/* /etc /var)
 MAX_FILE_SIZE=5368709120
+
+#################################################################
+
+BOX_USERNAME=$ENV_BOX_USERNAME
+BOX_PASSWORD=$ENV_BOX_PASSWORD
 
 if [[ "$EUID" -ne 0 ]]; then
 	echo
@@ -69,8 +74,8 @@ echo "password $BOX_PASSWORD" >> $HOME/.netrc
 
 cadaver --rcfile=$CADAVERRC
 
-# If your cadaver version does not recognize wildcard certificates, comment out 
-# the above line, and uncomment the below one. You will also need to install 
+# If your cadaver version does not recognize wildcard certificates, comment out
+# the above line, and uncomment the below one. You will also need to install
 # expect.
 
 #expect -c "set timeout -1; spawn cadaver --rcfile=$CADAVERRC; expect \"Do you wish to accept the certificate? (y/n)\"; send \"y\r\"; expect eof"
