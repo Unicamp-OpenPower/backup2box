@@ -12,15 +12,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '
 
-########################## CHANGE HERE ##########################
-
-BOX_USERNAME='user@example.com'
-BOX_PASSWORD='passw0rd'
+BOX_USERNAME=$ENV_BOX_USERNAME
+BOX_PASSWORD=$ENV_BOX_PASSWORD
 BACKUP_DESTINATION='Backup'
 DIRS_TO_BACK_UP=(/home/* /etc /var)
 MAX_FILE_SIZE=5368709120
-
-#################################################################
 
 if [[ "$EUID" -ne 0 ]]; then
 	echo
