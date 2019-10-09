@@ -46,7 +46,7 @@ Some versions of *cadaver* do not recognize a wildcard certificate, which is use
 >
 > Issued by: GeoTrust Inc., US
 
-This is known to happen when running *cadaver* on Ubuntu 14.04. To check whether or not this bug is present in your version, simply run `cadaver https://dav.box.com/dav`. If the warning is not shown, no changes are required. If it is, simply install *expect*, comment out the line 62 and uncomment the line 68. This way, the certificate will be automatically accepted.
+This is known to happen when running *cadaver* on Ubuntu 14.04. To check whether or not this bug is present in your version, simply run `cadaver https://dav.box.com/dav`. If the warning is not shown, no changes are required. If it is, simply install *expect*, comment out the line 75 and uncomment the line 81. This way, the certificate will be automatically accepted.
 
 To install *expect*:
 
